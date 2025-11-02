@@ -5,7 +5,7 @@ import api from "./axiosConfig";
  * POST /api/auth/register/
  */
 export const signup = async (userData) => {
-  const response = await api.post("auth/register/", userData);
+  const response = await api.post("dashboard/auth/register/", userData);
   return response.data;
 };
 
@@ -14,7 +14,7 @@ export const signup = async (userData) => {
  * POST /api/auth/login/
  */
 export const login = async (credentials) => {
-  const response = await api.post("auth/login/", credentials);
+  const response = await api.post("dashboard/auth/login/", credentials);
   const { access, refresh } = response.data;
 
   // 토큰 로컬 저장
@@ -30,7 +30,7 @@ export const login = async (credentials) => {
  */
 export const logout = async () => {
   try {
-    await api.post("auth/logout/");
+    await api.post("dashboard/auth/logout/");
   } finally {
     // 토큰 제거
     localStorage.removeItem("access_token");
@@ -46,7 +46,7 @@ export const refreshToken = async () => {
   const refresh = localStorage.getItem("refresh_token");
   if (!refresh) throw new Error("No refresh token found");
 
-  const response = await api.post("auth/token/refresh/", { refresh });
+  const response = await api.post("dashboard/auth/token/refresh/", { refresh });
   localStorage.setItem("access_token", response.data.access);
   return response.data;
 };
@@ -56,6 +56,6 @@ export const refreshToken = async () => {
  * GET /api/auth/user/
  */
 export const getUserInfo = async () => {
-  const response = await api.get("auth/user/");
+  const response = await api.get("dashboard/auth/user/");
   return response.data;
 };

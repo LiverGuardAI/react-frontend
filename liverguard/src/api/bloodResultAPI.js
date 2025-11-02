@@ -5,7 +5,7 @@ import api from "./axiosConfig";
  * GET /api/bloodresult/
  */
 export const getBloodResults = async () => {
-  const response = await api.get("bloodresult/");
+  const response = await api.get("dashboard/bloodresult/");
   return response.data;
 };
 
@@ -14,7 +14,7 @@ export const getBloodResults = async () => {
  * GET /api/bloodresult/:id/
  */
 export const getBloodResultById = async (id) => {
-  const response = await api.get(`bloodresult/${id}/`);
+  const response = await api.get(`dashboard/bloodresult/${id}/`);
   return response.data;
 };
 
@@ -23,7 +23,7 @@ export const getBloodResultById = async (id) => {
  * POST /api/bloodresult/
  */
 export const createBloodResult = async (data) => {
-  const response = await api.post("bloodresult/", data);
+  const response = await api.post("dashboard/bloodresult/", data);
   return response.data;
 };
 
@@ -32,7 +32,7 @@ export const createBloodResult = async (data) => {
  * PUT /api/bloodresult/:id/
  */
 export const updateBloodResult = async (id, data) => {
-  const response = await api.put(`bloodresult/${id}/`, data);
+  const response = await api.put(`dashboard/bloodresult/${id}/`, data);
   return response.data;
 };
 
@@ -41,6 +41,6 @@ export const updateBloodResult = async (id, data) => {
  * DELETE /api/bloodresult/:id/
  */
 export const deleteBloodResult = async (id) => {
-  const response = await api.delete(`bloodresult/${id}/`);
+  const response = await api.delete(`dashboard/bloodresult/${id}/`);
   return response.data;
 };
