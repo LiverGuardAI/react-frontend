@@ -1,7 +1,7 @@
 // src/pages/Dashboard/Dashboard.jsx
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";  // ✅ 추가
+import { useNavigate } from "react-router-dom";  // 추가
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -10,17 +10,17 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      // ✅ Django 세션 로그아웃 요청
+      // Django 세션 로그아웃 요청
       await axios.post(
         "http://localhost:8000/api/doctor/logout/",
         {},
         { withCredentials: true } // 세션 쿠키 포함
       );
 
-      // ✅ 클라이언트 저장 정보 정리
+      // 클라이언트 저장 정보 정리
       localStorage.removeItem("doctor");
 
-      // ✅ 로그인 페이지로 이동
+      // 로그인 페이지로 이동
       navigate("/login");
     } catch (err) {
       console.error("로그아웃 실패:", err);
@@ -29,7 +29,7 @@ const Dashboard = () => {
   };
 
   const handleGoHome = () => {
-    navigate("/home"); // ✅ 홈 페이지로 이동
+    navigate("/home"); // 홈 페이지로 이동
   };
 
   return (
