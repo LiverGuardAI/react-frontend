@@ -1,0 +1,15 @@
+/* src/layouts/Layout.css */
+.layout {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #f1f2f6;
+  padding: 40px;
+  box-sizing: border-box;
+}

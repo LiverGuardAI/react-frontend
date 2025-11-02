@@ -1,0 +1,51 @@
+/* src/components/Sidebar.css */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color: #2f3542;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.sidebar-title {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px;
+  border-bottom: 1px solid #3a3f47;
+  width: 100%;
+}
+
+/* ✅ 세로 방향 확실히 */
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ 각 메뉴 전체 폭 차지 */
+.menu-item {
+  display: block;
+  width: 100%; /* 부모(menu)의 전체 너비 차지 */
+  box-sizing: border-box;
+  padding: 14px 20px;
+  color: #d1d1d1;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #3a3f47;
+  color: white;
+}
+
+.menu-item.active {
+  background-color: #495057;
+  color: #fff;
+  font-weight: bold;
+}
