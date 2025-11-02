@@ -1,0 +1,35 @@
+/* src/components/Topbar/Topbar.css */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #2f3542;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 1000; /* ✅ Sidebar보다 높게 */
+  border-bottom: 1px solid #3a3f47;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: 0.2s;
+}
+
+.toggle-btn:hover {
+  color: #a4b0be;
+}
+
+.topbar-title {
+  font-size: 18px;
+  font-weight: bold;
+}

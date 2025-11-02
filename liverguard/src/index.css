@@ -1,17 +1,32 @@
 /* src/index.css */
 
 /* 기본 여백 제거 */
-html, body, #root {
-  height: 100%;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* 전역 폰트 */
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
   background-color: #f5f6fa;
   color: #2f3640;
+}
+
+#root {
+  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* 링크 기본 스타일 통일 */

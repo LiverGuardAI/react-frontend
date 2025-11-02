@@ -1,15 +1,42 @@
-/* src/layouts/Layout.css */
+/* src/components/Layout/Layout.css */
 .layout {
+  min-height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  flex-direction: column;
+  position: relative;
 }
 
 .main-content {
   flex: 1;
   background-color: #f1f2f6;
-  padding: 40px;
+  margin-top: 60px; /* Topbar 높이만큼 여백 */
+  padding: 20px;
+  transition: margin-left 0.3s ease, width 0.3s ease;
   box-sizing: border-box;
+  min-height: calc(100vh - 60px); /* Topbar 제외한 전체 높이 */
+  overflow-x: hidden;
+}
+
+/* 사이드바 열림 상태 - Sidebar의 width(240px)만큼 왼쪽 여백 */
+.main-content.with-sidebar {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+
+/* 사이드바 닫힘 상태 - 전체 너비 사용 */
+.main-content.full {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* 반응형 - 모바일에서는 Sidebar가 overlay 방식 */
+@media (max-width: 768px) {
+  .main-content,
+  .main-content.with-sidebar,
+  .main-content.full {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 15px;
+  }
 }

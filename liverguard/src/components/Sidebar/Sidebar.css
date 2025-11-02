@@ -1,42 +1,47 @@
-/* src/components/Sidebar.css */
+/* src/components/Sidebar/Sidebar.css */
 .sidebar {
   width: 240px;
-  height: 100vh;
+  height: calc(100vh - 60px); /* ✅ Topbar 높이만큼 빼기 */
   background-color: #2f3542;
   color: white;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: fixed;
+  top: 60px; /* ✅ Topbar 아래로 배치 */
+  left: 0;
+  transition: transform 0.3s ease;
+  z-index: 800; /* ✅ Topbar보다 아래 */
+  overflow-y: auto;
+  border-right: 1px solid #3a3f47;
 }
 
-.sidebar-title {
-  font-size: 22px;
-  font-weight: bold;
-  padding: 20px;
-  border-bottom: 1px solid #3a3f47;
-  width: 100%;
+.sidebar.closed {
+  transform: translateX(-100%);
 }
 
-/* ✅ 세로 방향 확실히 */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* ✅ 메뉴 스타일 */
 .menu {
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex: 1;
   margin: 0;
   padding: 0;
 }
 
-/* ✅ 각 메뉴 전체 폭 차지 */
 .menu-item {
   display: block;
-  width: 100%; /* 부모(menu)의 전체 너비 차지 */
-  box-sizing: border-box;
+  width: 100%;
   padding: 14px 20px;
-  color: #d1d1d1;
   text-decoration: none;
+  color: #d1d1d1;
   font-size: 16px;
   transition: background-color 0.2s;
+  box-sizing: border-box;
 }
 
 .menu-item:hover {
@@ -48,4 +53,16 @@
   background-color: #495057;
   color: #fff;
   font-weight: bold;
+}
+
+/* ✅ 반응형 (모바일에서 슬라이드) */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    top: 60px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
 }

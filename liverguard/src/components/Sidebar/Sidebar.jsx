@@ -1,8 +1,9 @@
+// src/components/Sidebar.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Sidebar.css"; // 따로 CSS 파일 연결
+import "./Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen }) => {
   const location = useLocation();
 
   const menus = [
@@ -13,9 +14,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-title">Sidebar</div>
-      <nav>
+    <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+      <nav className="menu">
         {menus.map((menu) => (
           <Link
             key={menu.path}
