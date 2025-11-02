@@ -2,8 +2,11 @@ import axios from "axios";
 
 // ✅ 환경변수에서 baseURL 가져오기
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
-  withCredentials: true, // 세션/쿠키 기반 인증 시 필요
+  baseURL: process.env.REACT_APP_API_BASE_URL, 
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // ✅ 요청 인터셉터 (선택: 토큰 추가 등)
