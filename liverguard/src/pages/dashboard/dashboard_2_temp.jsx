@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../../api/axiosConfig";
 import "./dashboard_1.css";
 
@@ -44,7 +43,6 @@ const INDICATOR_INFO = {
 };
 
 const Dashboard1 = () => {
-  const navigate = useNavigate();
   const [graphs, setGraphs] = useState({
     bilirubin: null,
     albumin: null,
@@ -114,15 +112,7 @@ const Dashboard1 = () => {
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-header-section">
-        <h1 className="dashboard-title">혈액 검사 위험도 대시보드</h1>
-        <button
-          className="navigate-to-dashboard2-btn"
-          onClick={() => navigate("/dashboard2")}
-        >
-          혈액 검사 전체 대시보드
-        </button>
-      </div>
+      <h1 className="dashboard-title">혈액 검사 위험도 대시보드</h1>
 
       {!hasData ? (
         <div className="no-data-container">

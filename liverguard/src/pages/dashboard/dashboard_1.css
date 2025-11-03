@@ -4,12 +4,39 @@
   margin: 0 auto;
 }
 
+.dashboard-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
 .dashboard-title {
   font-size: 28px;
   font-weight: bold;
-  margin-bottom: 20px;
   color: #333;
-  text-align: center;
+  margin: 0;
+}
+
+.navigate-to-dashboard2-btn {
+  padding: 12px 24px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navigate-to-dashboard2-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* 검사 날짜 정보 */
