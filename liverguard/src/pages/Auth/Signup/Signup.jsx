@@ -7,8 +7,11 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    username: "",
-    email: "",
+    id: "",
+    name: "",
+    birth_date: "",
+    sex: "",
+    phone: "",
     password: "",
     password2: "",
   });
@@ -35,12 +38,17 @@ const Signup = () => {
 
     try {
       await signup({
-        username: form.username,
-        email: form.email,
+        id: form.id,
+        name: form.name,
+        birth_date: form.birth_date,
+        sex: form.sex,
+        phone: form.phone,
         password: form.password,
+        password2: form.password2,
       });
       setSuccess("회원가입이 완료되었습니다!");
       setTimeout(() => navigate("/login"), 1000);
+      console.log(1)
     } catch (err) {
       console.error("회원가입 실패:", err);
       setError("회원가입 중 오류가 발생했습니다.");
@@ -54,18 +62,45 @@ const Signup = () => {
 
         <input
           type="text"
-          name="username"
+          name="id"
           placeholder="아이디"
-          value={form.username}
+          value={form.id}
           onChange={handleChange}
           required
         />
 
         <input
-          type="email"
-          name="email"
-          placeholder="이메일"
-          value={form.email}
+          type="text"
+          name="name"
+          placeholder="이름"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="date"
+          name="birth_date"
+          placeholder="생년월일"
+          value={form.birth_date}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="text"
+          name="sex"
+          placeholder="성별"
+          value={form.sex}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="text"
+          name="phone"
+          placeholder="번호"
+          value={form.phone}
           onChange={handleChange}
           required
         />
