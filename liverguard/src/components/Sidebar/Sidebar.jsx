@@ -8,10 +8,10 @@ const Sidebar = ({ isOpen }) => {
   const location = useLocation();
 
   const menus = [
-    { name: "Page 1", path: "/page1" },
-    { name: "dashboard", path: "/dashboard1" },
-    { name: "Page 3", path: "/page3" },
-    { name: "Page 4", path: "/page4" },
+    { name: "2D MAP", path: "/page1" },
+    { name: "혈액검사 결과관리", path: "/page2" },
+    { name: "혈액검사 대시보드", path: "/dashboard1" },
+    { name: "일정관리", path: "/page3" },
   ];
 
   const { handleLogout } = useAuth();
