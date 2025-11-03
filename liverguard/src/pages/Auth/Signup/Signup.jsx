@@ -7,7 +7,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    id: "",
+    user_id: "",
     name: "",
     birth_date: "",
     sex: "",
@@ -38,7 +38,7 @@ const Signup = () => {
 
     try {
       await signup({
-        id: form.id,
+        user_id: form.user_id,
         name: form.name,
         birth_date: form.birth_date,
         sex: form.sex,
@@ -62,7 +62,7 @@ const Signup = () => {
 
         <input
           type="text"
-          name="id"
+          name="user_id"
           placeholder="아이디"
           value={form.id}
           onChange={handleChange}
