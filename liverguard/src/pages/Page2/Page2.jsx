@@ -18,8 +18,13 @@ const Page2 = () => {
     }
     try {
       setLoading(true);
-      const res = await getBloodResults(patient_id);
-      setRows(res?.data || []);
+      const res = await getBloodResults();
+      console.log("API Response:", res);
+      // 현재 환자의 데이터만 필터링
+      const filteredData = (Array.isArray(res) ? res : []).filter(
+        item => item.patient === patient_id
+      );
+      setRows(filteredData);
       setError(null);
     } catch (err) {
       if (err.response?.status === 404) {

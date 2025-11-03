@@ -7,7 +7,7 @@ import Page1 from "./pages/Page1/Page1";
 import Page2 from "./pages/Page2/Page2";
 import Dashboard1 from "./pages/dashboard/dashboard_1";
 import Page3 from "./pages/Page3/Page3";
-import Page4 from "./pages/Page4/Page4";
+// import Page4 from "./pages/Page4/Page4";
 import EditBloodResultForm from './components/Page2/EditBloodResultForm';
 import CreateBloodResultForm from './components/Page2/CreateBloodResultForm';
 

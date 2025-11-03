@@ -45,17 +45,17 @@ const CreateBloodResultForm  = () => {
             return;
         }
 
-        const ALBI = calcALBI(form.bilirubin, form.albumin);
+        const albi = calcALBI(form.bilirubin, form.albumin);
         const taken_at = makeTakenAtRandom();
         const patient_id = localStorage.getItem("patient_id");
 
         const payload = {
             ...form,
-            ALBI: parseFloat(ALBI),
+            albi: parseFloat(albi),  // ALBI → albi (소문자)
             taken_at,
-            patient_id: parseInt(patient_id),
+            patient: patient_id,  // patient_id → patient, UUID 문자열 그대로
         };
-
+        
         try {
             setLoading(true);
             await createBloodResult(payload);
