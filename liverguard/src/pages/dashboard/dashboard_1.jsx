@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axiosConfig";
 import "./dashboard_1.css";
 
 // 각 지표에 대한 설명
@@ -60,24 +60,8 @@ const Dashboard1 = () => {
       try {
         setLoading(true);
 
-        // 로컬 스토리지에서 JWT 토큰 가져오기
-        const accessToken = localStorage.getItem("access_token");
-
-        if (!accessToken) {
-          setError("로그인이 필요합니다.");
-          setLoading(false);
-          return;
-        }
-
         // 백엔드 API에서 모든 그래프 데이터 가져오기
-        const response = await axios.get(
-          "http://localhost:8000/api/dashboard/graphs/",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
+        const response = await api.get("dashboard/dashboard/graphs/");
 
         // 응답 데이터에서 그래프 및 메타데이터 추출
         const { graphs: graphData, test_date, patient_name } = response.data;
