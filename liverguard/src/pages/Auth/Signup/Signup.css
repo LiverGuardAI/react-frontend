@@ -21,19 +21,36 @@
   color: #222;
 }
 
-.signup-box input {
+/* ✅ input & select 공통 스타일 */
+.signup-box input,
+.signup-box select {
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 15px;
-  transition: border 0.2s ease;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+  color: #333;
+  appearance: none; /* 기본 드롭다운 화살표 제거 (브라우저 통일용) */
 }
 
-.signup-box input:focus {
+/* ✅ focus 시 강조 */
+.signup-box input:focus,
+.signup-box select:focus {
   border: 1px solid #10b981;
   outline: none;
+  box-shadow: 0 0 4px rgba(16, 185, 129, 0.3);
+}
+
+/* ✅ 드롭다운 화살표 꾸미기 (선택사항) */
+.signup-box select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%2310b981' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 35px;
 }
 
 .signup-box button {

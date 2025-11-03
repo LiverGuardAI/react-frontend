@@ -87,14 +87,16 @@ const Signup = () => {
           required
         />
 
-        <input
-          type="text"
+        <select
           name="sex"
-          placeholder="성별"
           value={form.sex}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="">성별 선택</option>
+          <option value="male">남성</option>
+          <option value="female">여성</option>
+        </select>
 
         <input
           type="text"
