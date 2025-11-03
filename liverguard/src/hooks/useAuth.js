@@ -33,6 +33,7 @@ export const useAuth = () => {
     await login(credentials);
     const data = await getUserInfo();
     setUser(data);
+    localStorage.setItem("patient_id", data.patient_id); // 추가
   };
 
 const handleLogout = async () => {

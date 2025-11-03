@@ -1,0 +1,39 @@
+.blood-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+.blood-table thead th {
+  text-align: left;
+  padding: 10px 8px;
+  font-weight: 600;
+  background: transparent; /* 박스처럼 보이는 배경 제거 */
+  border: none; /* 테두리 제거 */
+}
+
+.blood-table tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #e6e6e6; /* 얇은 밑줄만 표시 */
+}
+
+.action-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 버튼 공통 */
+.btn {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* 수정 / 삭제 색상 */
+.btn-edit { border-color:#2b7be4; color:#2b7be4; }
+.btn-delete { border-color:#d9534f; color:#d9534f; }
