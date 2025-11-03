@@ -14,6 +14,7 @@ export const signup = async (userData) => {
  * POST /api/auth/login/
  */
 export const login = async (credentials) => {
+  console.log("🟢 로그인 요청 payload:", credentials); // 🔥 실제 전송 데이터 확인
   const response = await api.post("dashboard/auth/login/", credentials);
   const { access, refresh } = response.data;
 

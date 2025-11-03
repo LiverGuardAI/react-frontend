@@ -8,7 +8,7 @@ const Login = () => {
   const { handleLogin } = useAuth();
 
   const [form, setForm] = useState({
-    username: "",
+    user_id: "",
     password: "",
   });
 
@@ -28,7 +28,7 @@ const Login = () => {
     try {
       await handleLogin(form); // useAuth 훅에서 로그인 + 사용자 정보 갱신
       alert("로그인 성공!");
-      navigate("/dashboard"); // 로그인 후 이동할 페이지
+      navigate("/page1"); // 로그인 후 이동할 페이지
     } catch (err) {
       console.error("로그인 실패:", err);
       setError("아이디 또는 비밀번호가 올바르지 않습니다.");
@@ -42,9 +42,9 @@ const Login = () => {
 
         <input
           type="text"
-          name="username"
+          name="user_id"
           placeholder="아이디"
-          value={form.username}
+          value={form.user_id}
           onChange={handleChange}
           required
         />
