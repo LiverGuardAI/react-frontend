@@ -30,10 +30,12 @@ export const login = async (credentials) => {
  * POST /api/auth/logout/
  */
 export const logout = async () => {
+  const refresh = localStorage.getItem("refresh_token");
   try {
-    await api.post("dashboard/auth/logout/");
+    await api.post("dashboard/auth/logout/", { refresh }); // ✅ refresh 전송
+  } catch (err) {
+    console.error("로그아웃 실패:", err);
   } finally {
-    // 토큰 제거
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
   }
