@@ -451,8 +451,7 @@ const Dashboard2 = () => {
           </p>
         </div>
       </div>
-<<<<<<< Updated upstream
-=======
+
 
       {/* 종합 위험도 평가 섹션 */}
       <div className="risk-assessment-section">
@@ -559,7 +558,7 @@ const Dashboard2 = () => {
             </ul>
           </div>
         </div>
->>>>>>> Stashed changes
+      </div>
       </div>
     </div>
   );
