@@ -11,7 +11,8 @@ const Page1 = () => {
     name: "사용자",
     birth_date: "",
     sex: "",
-    phone: ""
+    height: null,
+    weight: null
   });
 
   useEffect(() => {
@@ -28,6 +29,10 @@ const Page1 = () => {
       try {
         const userData = await getUserInfo();
         setUserInfo(userData);
+        // localStorage에 사용자 이름 저장
+        if (userData.name) {
+          localStorage.setItem("user_name", userData.name);
+        }
       } catch (error) {
         console.error("사용자 정보 로딩 실패:", error);
       }
@@ -68,25 +73,25 @@ const Page1 = () => {
     {
       id: 'liver',
       label: '간',
-      x: 55,
-      y: 48,
-      color: '#8B5CF6',
+      x: 58,
+      y: 42,
+      color: '#1ECBE1',  // Cyan
       tests: ['AST', 'ALT', 'ALP', 'GGT', 'Bilirubin', 'Albumin', 'ALBI']
     },
     {
       id: 'blood',
       label: '혈액/응고',
-      x: 40,
-      y: 35,
-      color: '#EC4899',
+      x: 43,
+      y: 38,
+      color: '#EC4899',  // Pink
       tests: ['INR', 'Platelet']
     },
     {
       id: 'tumor',
       label: '종양표지자',
-      x: 50,
-      y: 55,
-      color: '#06B6D4',
+      x: 52,
+      y: 45,
+      color: '#8B5CF6',  // Purple
       tests: ['AFP']
     }
   ];
@@ -133,7 +138,7 @@ const Page1 = () => {
   };
 
   return (
-    <div className="page1-container">
+    <div className="page1-container" style={{ backgroundImage: 'url(/images/background.avif)' }}>
       <div className="page1-content">
         <h2 className="page1-title">신체 부위별 검사 결과</h2>
         <p className="page1-subtitle">장기를 클릭하여 관련 혈액검사 결과를 확인하세요</p>
@@ -226,6 +231,44 @@ const Page1 = () => {
             </div>
           </div>
 
+          {/* Patient Profile Card */}
+          <div className="patient-profile-card">
+            <h3 className="profile-title">{userInfo.name} 님의 건강 프로필</h3>
+            <div className="profile-content">
+              <div className="profile-item">
+                <span className="profile-label">이름</span>
+                <span className="profile-value">{userInfo.name}</span>
+              </div>
+              <div className="profile-item">
+                <span className="profile-label">나이</span>
+                <span className="profile-value">
+                  {calculateAge(userInfo.birth_date) ? `${calculateAge(userInfo.birth_date)}세` : '-'}
+                </span>
+              </div>
+              <div className="profile-item">
+                <span className="profile-label">성별</span>
+                <span className="profile-value">{userInfo.sex === 'male' ? '남성' : userInfo.sex === 'female' ? '여성' : '-'}</span>
+              </div>
+              <div className="profile-item">
+                <span className="profile-label">신장/체중</span>
+                <span className="profile-value">
+                  {userInfo.height && userInfo.weight
+                    ? `${userInfo.height}cm / ${userInfo.weight}kg`
+                    : '-'}
+                </span>
+              </div>
+            </div>
+
+            <button
+              className="add-test-btn"
+              onClick={() => navigate('/page2')}
+            >
+              <span className="btn-icon">+</span>
+              검사 추가 및 수정
+            </button>
+          </div>
+        </div>
+
           {/* Test Results Section */}
           <div className="test-results-container">
             {organs.map((organ) => (
@@ -293,10 +336,9 @@ const Page1 = () => {
               </div>
             ))}
           </div>
-        </div>
       </div>
     </div>
-      );
+  );
 };
 
-      export default Page1;
+export default Page1;

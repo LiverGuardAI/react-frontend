@@ -129,7 +129,24 @@ const Dashboard2 = () => {
     return <div className="dashboard2-container error">{error}</div>;
 
   return (
-    <div className="dashboard2-container">
+    <div className="dashboard2-container" style={{
+      backgroundImage: "url(/images/background.avif)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+      backgroundRepeat: "no-repeat"
+    }}>
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "linear-gradient(to bottom right, rgba(250, 245, 255, 0.5), rgba(255, 255, 255, 0.5), rgba(239, 246, 255, 0.5))",
+        zIndex: 0,
+        pointerEvents: "none"
+      }} />
+      <div style={{ position: "relative", zIndex: 1 }}>
       <div className="dashboard2-header">
         <button className="back-button" onClick={() => navigate("/dashboard1")}>
           ← 뒤로가기
@@ -273,6 +290,7 @@ const Dashboard2 = () => {
             간 질환 환자의 경우 혈소판 수치가 낮아질 수 있으며, 이는 간경변의 진행 정도를 반영할 수 있습니다.
           </p>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -17,16 +17,25 @@ const Home = () => {
     // Scroll down smoothly to features section first
     if (featuresRef.current) {
       featuresRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Add fade out effect
+      const container = document.querySelector('.min-h-screen');
+      setTimeout(() => {
+        if (container) {
+          container.style.transition = 'opacity 0.5s ease-out';
+          container.style.opacity = '0';
+        }
+      }, 800);
     }
 
-    // After scroll animation, navigate based on authentication
+    // After scroll and fade animation, navigate based on authentication
     setTimeout(() => {
       if (isAuthenticated) {
         navigate('/page1');
       } else {
         navigate('/login');
       }
-    }, 800);
+    }, 1300);
   };
 
   return (
@@ -51,19 +60,11 @@ const Home = () => {
             <a href="#" className="text-white/90 hover:text-white transition-colors hidden md:block">홈</a>
             <a href="#" className="text-white/90 hover:text-white transition-colors hidden md:block">서비스</a>
             <a href="#" className="text-white/90 hover:text-white transition-colors hidden md:block">문의</a>
-            {isAuthenticated ? (
-              <button
-                onClick={() => navigate('/page1')}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
-                대시보드
-              </button>
-            ) : (
-              <button
-                onClick={() => navigate('/login')}
-                className="px-6 py-2 bg-white/10 backdrop-blur-md text-white rounded-lg hover:bg-white/20 transition-all border border-white/20">
-                로그인
-              </button>
-            )}
+            <button
+              onClick={() => navigate('/signup')}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
+              회원가입
+            </button>
           </div>
         </nav>
 
@@ -89,10 +90,16 @@ const Home = () => {
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
               </button>
               <button
-                onClick={() => navigate('/signup')}
+                onClick={() => {
+                  if (isAuthenticated) {
+                    navigate('/page1');
+                  } else {
+                    navigate('/login');
+                  }
+                }}
                 className="px-8 py-4 bg-white/15 backdrop-blur-sm text-white rounded-lg font-medium text-base hover:bg-white/25 transition-all border border-white/30"
                 style={{ fontWeight: 500 }}>
-                회원가입
+                로그인
               </button>
             </div>
           </div>

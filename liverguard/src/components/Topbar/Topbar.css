@@ -5,49 +5,67 @@
   left: 0;
   right: 0;
   height: 60px;
-  background-color: #2f3542;
-  color: white;
+  background-color: #ffffff;
+  color: #1f2937;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 20px;
   box-sizing: border-box;
-  z-index: 1000; /* ✅ Sidebar보다 높게 */
-  border-bottom: 1px solid #3a3f47;
+  z-index: 1000;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .toggle-btn {
   background: none;
   border: none;
-  color: white;
+  color: #1f2937;
   font-size: 24px;
   cursor: pointer;
-  margin-right: 20px;
-  transition: 0.2s;
+  transition: all 0.2s;
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .toggle-btn:hover {
-  color: #a4b0be;
+  background-color: #f3f4f6;
+  color: #06b6d4;
 }
 
-.topbar-branding {
+.topbar-left-items {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 32px;
 }
 
-.topbar-logo {
-  height: 40px;
-  object-fit: contain;
-  filter: brightness(1.1);
-  transition: transform 0.3s ease;
-}
-
-.topbar-logo:hover {
-  transform: scale(1.05);
+.topbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .topbar-title {
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.topbar-logo {
+  height: 50px;
+  object-fit: contain;
+}
+
+.topbar-user {
+  margin-left: auto;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8B5CF6;
 }

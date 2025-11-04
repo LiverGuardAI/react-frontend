@@ -48,12 +48,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-300 to-blue-300">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 via-cyan-300 to-teal-300">
       <div className="w-full max-w-md px-8">
         <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-10">
           {/* User Icon */}
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
               <User className="text-white" size={40} />
             </div>
           </div>
@@ -71,11 +71,11 @@ const Login = () => {
               <input
                 type="text"
                 name="user_id"
-                placeholder="Email ID"
+                placeholder="ID"
                 value={form.user_id}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-white border-b-2 border-blue-300 focus:border-blue-500 outline-none transition-colors text-gray-700"
+                className="w-full pl-12 pr-4 py-3 bg-white border-b-2 border-cyan-300 focus:border-cyan-500 outline-none transition-colors text-gray-700"
               />
             </div>
 
@@ -91,7 +91,7 @@ const Login = () => {
                 value={form.password}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-white border-b-2 border-blue-300 focus:border-blue-500 outline-none transition-colors text-gray-700"
+                className="w-full pl-12 pr-4 py-3 bg-white border-b-2 border-cyan-300 focus:border-cyan-500 outline-none transition-colors text-gray-700"
               />
             </div>
 
@@ -102,14 +102,14 @@ const Login = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="mr-2 w-4 h-4 accent-blue-500"
+                  className="mr-2 w-4 h-4 accent-cyan-500"
                 />
                 <span className="text-gray-600">Remember me</span>
               </label>
               <button
                 type="button"
                 onClick={() => alert('비밀번호 찾기 기능은 준비 중입니다.')}
-                className="text-blue-500 hover:text-blue-700 transition-colors"
+                className="text-cyan-500 hover:text-cyan-700 transition-colors"
               >
                 Forgot Password?
               </button>
@@ -125,7 +125,7 @@ const Login = () => {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               LOGIN
             </button>

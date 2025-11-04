@@ -66,12 +66,12 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-300 to-blue-300 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 via-cyan-300 to-teal-300 py-12">
       <div className="w-full max-w-4xl px-8">
         <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-10">
           {/* Header with Icon */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-4 shadow-lg">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mb-4 shadow-lg">
               <UserPlus className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800 mb-2">회원가입</h2>
@@ -92,7 +92,7 @@ const Signup = () => {
                 value={form.user_id}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200"
               />
             </div>
 
@@ -108,7 +108,7 @@ const Signup = () => {
                 value={form.name}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200"
               />
             </div>
 
@@ -124,7 +124,7 @@ const Signup = () => {
                 value={form.birth_date}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200"
               />
             </div>
 
@@ -135,7 +135,7 @@ const Signup = () => {
                 value={form.sex}
                 onChange={handleChange}
                 required
-                className="w-full pl-4 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer"
+                className="w-full pl-4 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer"
               >
                 <option value="">성별 선택</option>
                 <option value="male">남성</option>
@@ -155,7 +155,7 @@ const Signup = () => {
                 value={form.phone}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200"
               />
             </div>
 
@@ -171,7 +171,7 @@ const Signup = () => {
                 value={form.password}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200"
               />
             </div>
 
@@ -187,7 +187,7 @@ const Signup = () => {
                 value={form.password2}
                 onChange={handleChange}
                 required
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-200"
               />
             </div>
             </div>
@@ -209,7 +209,7 @@ const Signup = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 mt-6"
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 mt-6"
             >
               회원가입
             </button>
@@ -220,7 +220,7 @@ const Signup = () => {
                 이미 계정이 있으신가요?{" "}
                 <Link
                   to="/login"
-                  className="text-purple-600 font-semibold hover:text-purple-700 transition-colors duration-200"
+                  className="text-cyan-600 font-semibold hover:text-cyan-700 transition-colors duration-200"
                 >
                   로그인
                 </Link>

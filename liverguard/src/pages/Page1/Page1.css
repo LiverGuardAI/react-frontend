@@ -1,13 +1,33 @@
 /* Page1.css */
 .page1-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #faf5ff, #ffffff, #eff6ff);
-  padding: 2rem;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding: 1rem;
+  position: relative;
+}
+
+.page1-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom right, rgba(250, 245, 255, 0.3), rgba(255, 255, 255, 0.3), rgba(239, 246, 255, 0.3));
+  z-index: 0;
+}
+
+.page1-container > * {
+  position: relative;
+  z-index: 1;
 }
 
 .page1-content {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
 }
 
 .page1-title {
@@ -25,11 +45,21 @@
   margin-bottom: 3rem;
 }
 
+/* Body Diagram Row - side by side layout */
+.body-diagram-row {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
 /* Body Diagram Container */
 .body-diagram-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 4rem;
+  flex-shrink: 0;
 }
 
 .body-diagram {
@@ -178,6 +208,100 @@
   }
 }
 
+/* Patient Profile Card */
+.patient-profile-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  height: fit-content;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.patient-profile-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.profile-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #8B5CF6;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+  text-align: center;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.profile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.profile-item:hover {
+  background: #f3f4f6;
+}
+
+.profile-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.profile-value {
+  font-size: 1rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.add-test-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(139, 92, 246, 0.2);
+}
+
+.add-test-btn:hover {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  box-shadow: 0 6px 12px rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.add-test-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+}
+
+.btn-icon {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 /* Test Results Container */
 .test-results-container {
   display: flex;
@@ -317,9 +441,19 @@
     font-size: 2rem;
   }
 
+  .body-diagram-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .body-diagram {
     width: 300px;
     height: 500px;
+  }
+
+  .patient-profile-card {
+    width: 100%;
+    max-width: 400px;
   }
 
   .test-cards {

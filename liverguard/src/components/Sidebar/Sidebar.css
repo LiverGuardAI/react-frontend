@@ -1,19 +1,20 @@
 /* src/components/Sidebar/Sidebar.css */
 .sidebar {
   width: 240px;
-  height: calc(100vh - 60px); /* ✅ Topbar 높이만큼 빼기 */
-  background-color: #2f3542;
-  color: white;
+  height: calc(100vh - 60px);
+  background-color: #ffffff;
+  color: #1f2937;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   position: fixed;
-  top: 60px; /* ✅ Topbar 아래로 배치 */
+  top: 60px;
   left: 0;
   transition: transform 0.3s ease;
-  z-index: 800; /* ✅ Topbar보다 아래 */
+  z-index: 800;
   overflow-y: auto;
-  border-right: 1px solid #3a3f47;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar.closed {
@@ -38,21 +39,24 @@
   width: 100%;
   padding: 14px 20px;
   text-decoration: none;
-  color: #d1d1d1;
+  color: #6b7280;
   font-size: 16px;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
   box-sizing: border-box;
+  border-left: 3px solid transparent;
 }
 
 .menu-item:hover {
-  background-color: #3a3f47;
-  color: white;
+  background-color: #f3f4f6;
+  color: #06b6d4;
+  border-left-color: #06b6d4;
 }
 
 .menu-item.active {
-  background-color: #495057;
-  color: #fff;
+  background-color: #ecfeff;
+  color: #0891b2;
   font-weight: bold;
+  border-left-color: #0891b2;
 }
 
 /* ✅ 반응형 (모바일에서 슬라이드) */
@@ -70,18 +74,20 @@
 .logout-section {
   margin-top: auto;
   text-align: left;
-  padding: 10px 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .logout-btn {
-  font-size: 13px;
-  color: #afafaf;
+  font-size: 14px;
+  color: #6b7280;
   background: none;
   border: none;
   cursor: pointer;
+  transition: color 0.2s;
+  font-weight: 500;
 }
 
 .logout-btn:hover {
-  color: #fd5353;
-  text-decoration: underline;
+  color: #ef4444;
 }

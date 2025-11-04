@@ -59,7 +59,26 @@ const Page2 = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{
+      minHeight: "100vh",
+      backgroundImage: "url(/images/background.avif)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+      backgroundRepeat: "no-repeat",
+      padding: "20px",
+      position: "relative"
+    }}>
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "linear-gradient(to bottom right, rgba(250, 245, 255, 0.5), rgba(255, 255, 255, 0.5), rgba(239, 246, 255, 0.5))",
+        zIndex: 0
+      }} />
+      <div style={{ position: "relative", zIndex: 1 }}>
       <h2>혈액검사 결과</h2>
       <button 
         onClick={() => navigate("/bloodresult/create")}
@@ -127,6 +146,7 @@ const Page2 = () => {
           </tbody>
         </table>
       )}
+      </div>
     </div>
   );
 };

@@ -31,24 +31,35 @@ export const useAuth = () => {
 
   const handleLogin = async (credentials) => {
     await login(credentials);
-    const data = await getUserInfo();
-    setUser(data);
-    localStorage.setItem("patient_id", data.patient_id); // 추가
+
+    // getUserInfo는 선택적으로 처리 (실패해도 로그인은 성공으로 처리)
+    try {
+      const data = await getUserInfo();
+      setUser(data);
+      localStorage.setItem("patient_id", data.patient_id);
+      localStorage.setItem("user_name", data.name);  // 사용자 이름 저장
+    } catch (err) {
+      console.warn("사용자 정보 로딩 실패 (나중에 재시도):", err);
+      // 사용자 정보는 나중에 Page1에서 다시 불러올 것임
+    }
   };
 
-const handleLogout = async () => {
-  try {
-    await logout(); // ✅ 서버에 토큰 보낼 때까지 유지
-    alert("로그아웃되었습니다.");
-  } catch (err) {
-    console.error("로그아웃 실패:", err);
-  } finally {
-    localStorage.removeItem("access_token"); // ✅ 서버 요청 후 삭제
-    localStorage.removeItem("refresh_token");
-    setUser(null);
-    navigate("/login");
-  }
-};
+  const handleLogout = async () => {
+    try {
+      await logout(); // 서버에 로그아웃 요청
+      alert("로그아웃되었습니다.");
+    } catch (err) {
+      console.error("로그아웃 실패:", err);
+    } finally {
+      // 로컬 스토리지 정리
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("patient_id");
+      localStorage.removeItem("user_name");
+      setUser(null);
+      navigate("/login");
+    }
+  };
 
   return { user, loading, handleLogin, handleLogout };
 };

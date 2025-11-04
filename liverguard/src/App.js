@@ -9,9 +9,11 @@ import Page2 from "./pages/Page2/Page2";
 import Dashboard1 from "./pages/dashboard/dashboard_1";
 import Dashboard2 from "./pages/dashboard/dashboard_2";
 import Page3 from "./pages/Page3/Page3";
+import Profile from "./pages/Profile/Profile";
+import Pharmacy from "./pages/Pharmacy/Pharmacy";
 // import Page4 from "./pages/Page4/Page4";
-import EditBloodResultForm from './components/Page2/EditBloodResultForm';
-import CreateBloodResultForm from './components/Page2/CreateBloodResultForm';
+import EditBloodResultForm from "./components/Page2/EditBloodResultForm";
+import CreateBloodResultForm from "./components/Page2/CreateBloodResultForm";
 
 const App = () => {
   return (
@@ -22,7 +24,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         
-        
         {/* sidebar 있음 */}
         <Route element={<Layout />}>
           <Route path="/page1" element={<Page1 />} />
@@ -30,7 +31,8 @@ const App = () => {
           <Route path="/dashboard1" element={<Dashboard1 />} />
           <Route path="/dashboard2" element={<Dashboard2 />} />
           <Route path="/page3" element={<Page3 />} />
-
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/bloodresult/create" element={<CreateBloodResultForm />} />
           <Route path="/bloodresult/edit/:id" element={<EditBloodResultForm />} />
         </Route>

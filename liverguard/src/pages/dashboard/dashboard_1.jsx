@@ -55,7 +55,6 @@ const Dashboard1 = () => {
   const [error, setError] = useState(null);
   const [hasData, setHasData] = useState(true);
   const [testDate, setTestDate] = useState(null);
-  const [patientName, setPatientName] = useState(null);
 
   useEffect(() => {
     const fetchGraphs = async () => {
@@ -84,7 +83,6 @@ const Dashboard1 = () => {
 
         setGraphs(processedGraphs);
         setTestDate(test_date);
-        setPatientName(patient_name);
         setHasData(true);
         setLoading(false);
       } catch (err) {
@@ -113,7 +111,24 @@ const Dashboard1 = () => {
   }
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" style={{
+      backgroundImage: "url(/images/background.avif)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+      backgroundRepeat: "no-repeat"
+    }}>
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: "linear-gradient(to bottom right, rgba(250, 245, 255, 0.5), rgba(255, 255, 255, 0.5), rgba(239, 246, 255, 0.5))",
+        zIndex: 0,
+        pointerEvents: "none"
+      }} />
+      <div style={{ position: "relative", zIndex: 1 }}>
       <div className="dashboard-header-section">
         <h1 className="dashboard-title">혈액 검사 위험도 대시보드</h1>
         <button
@@ -180,6 +195,7 @@ const Dashboard1 = () => {
         </div>
         </>
       )}
+      </div>
     </div>
   );
 };

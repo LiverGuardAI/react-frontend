@@ -9,9 +9,9 @@
 
 .main-content {
   flex: 1;
-  background-color: #f1f2f6;
+  background-color: transparent;
   margin-top: 60px; /* Topbar 높이만큼 여백 */
-  padding: 20px;
+  padding: 0;
   transition: margin-left 0.3s ease, width 0.3s ease;
   box-sizing: border-box;
   min-height: calc(100vh - 60px); /* Topbar 제외한 전체 높이 */
@@ -37,6 +37,6 @@
   .main-content.full {
     margin-left: 0 !important;
     width: 100% !important;
-    padding: 15px;
+    padding: 0;
   }
 }
