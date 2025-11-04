@@ -200,7 +200,7 @@ const Pharmacy = () => {
           </div>
         </div>
 
-        <div className="main-content">
+        <div className="pharmacy-main-content">
           <div className="map-container">
             <MapContainer center={mapCenter} zoom={mapZoom} style={{ height: '100%', width: '100%' }}>
               <ChangeView center={mapCenter} zoom={mapZoom} />

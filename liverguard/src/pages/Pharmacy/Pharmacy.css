@@ -134,7 +134,7 @@
   box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
 }
 
-.main-content {
+.pharmacy-main-content {
   display: grid;
   grid-template-columns: 1fr 500px;
   gap: 1rem;
