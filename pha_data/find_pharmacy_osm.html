@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주변 약국 찾기</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .search-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-title {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 120px 18px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .search-buttons {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-current {
+            background: #FF9800;
+        }
+
+        .btn-current:hover {
+            background: #F57C00;
+        }
+
+        .btn-search {
+            background: #7B1FA2;
+        }
+
+        .btn-search:hover {
+            background: #5e1578;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+            height: calc(100vh - 200px);
+        }
+
+        #map {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+        }
+
+        .pharmacy-list {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pharmacy-list-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .pharmacy-item {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pharmacy-item:hover {
+            border-color: #7B1FA2;
+            box-shadow: 0 3px 10px rgba(123, 31, 162, 0.1);
+        }
+
+        .pharmacy-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .pharmacy-address {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .pharmacy-distance {
+            font-size: 14px;
+            color: #7B1FA2;
+            font-weight: 500;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            #map {
+                height: 400px;
+            }
+
+            .pharmacy-list {
+                max-height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-header">
+            <h1 class="search-title">본인의 위치를 입력하세요</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="예: 강남역, 서울시 강남구">
+                <div class="search-buttons">
+                    <button class="btn btn-current" onclick="setDefaultLocation()">서울시청</button>
+                    <button class="btn btn-search" onclick="searchLocation()">🔍</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="map"></div>
+            <div class="pharmacy-list">
+                <div class="pharmacy-list-title">주변 약국 (반경 1km)</div>
+                <div id="pharmacyList">
+                    <div class="no-results">위치를 검색하면 주변 약국이 표시됩니다</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let markers = [];
+        let currentPosition = null;
+
+        // 지도 초기화
+        console.log('Initializing map...');
+        map = L.map('map').setView([37.5665, 126.9780], 13);
+
+        // OpenStreetMap 타일 레이어 추가
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        console.log('Map initialized successfully');
+
+
+        // 주변 약국 검색
+        async function searchNearbyPharmacies(lat, lng) {
+            const listDiv = document.getElementById('pharmacyList');
+            listDiv.innerHTML = '<div class="loading">약국을 검색하는 중...</div>';
+
+            // 기존 마커 제거
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+
+            try {
+                // 서버 API 호출 (1km 반경)
+                const response = await fetch(`/api/search?lat=${lat}&lng=${lng}&radius=1000`);
+                const pharmacies = await response.json();
+
+                console.log(`Found ${pharmacies.length} pharmacies within 1km`);
+
+                displayPharmacies(pharmacies);
+                displayMarkersOnMap(pharmacies);
+
+            } catch (error) {
+                console.error('Error:', error);
+                listDiv.innerHTML = '<div class="no-results">약국 정보를 불러오는데 실패했습니다.</div>';
+            }
+        }
+
+        // 약국 목록 표시
+        function displayPharmacies(pharmacies) {
+            const listDiv = document.getElementById('pharmacyList');
+
+            if (pharmacies.length === 0) {
+                listDiv.innerHTML = '<div class="no-results">1km 이내에 약국이 없습니다</div>';
+                return;
+            }
+
+            listDiv.innerHTML = pharmacies.map((pharmacy, index) => `
+                <div class="pharmacy-item" onclick="focusPharmacy(${pharmacy.lat}, ${pharmacy.lng})">
+                    <div class="pharmacy-name">${index + 1}. ${pharmacy.name}</div>
+                    <div class="pharmacy-address">${pharmacy.address}</div>
+                    ${pharmacy.phone ? `<div class="pharmacy-address">📞 ${pharmacy.phone}</div>` : ''}
+                    <div class="pharmacy-distance">📍 ${pharmacy.distance}m</div>
+                </div>
+            `).join('');
+        }
+
+        // 지도에 마커 표시
+        function displayMarkersOnMap(pharmacies) {
+            pharmacies.forEach((pharmacy, index) => {
+                const marker = L.marker([pharmacy.lat, pharmacy.lon])
+                    .addTo(map)
+                    .bindPopup(`
+                        <strong>${pharmacy.name}</strong><br>
+                        ${pharmacy.address}<br>
+                        ${pharmacy.phone ? `📞 ${pharmacy.phone}<br>` : ''}
+                        📍 ${pharmacy.distance}m
+                    `);
+
+                markers.push(marker);
+            });
+        }
+
+        // 약국 마커 클릭 시 포커스
+        function focusPharmacy(lat, lng) {
+            map.setView([lat, lng], 17);
+        }
+
+        // 서울시청 위치로 설정
+        function setDefaultLocation() {
+            setLocation(37.5665, 126.9780, '서울시청');
+        }
+
+        // 위치 설정 및 검색
+        function setLocation(lat, lng, name) {
+            map.setView([lat, lng], 15);
+
+            // 현재 위치 마커 표시
+            if (currentPosition) {
+                map.removeLayer(currentPosition);
+            }
+
+            currentPosition = L.marker([lat, lng], {
+                icon: L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            }).addTo(map).bindPopup(`현재 위치: ${name}`).openPopup();
+
+            searchNearbyPharmacies(lat, lng);
+        }
+
+        // 주소 검색
+        async function searchLocation() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                alert('위치를 입력해주세요');
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ' 대한민국')}&countrycodes=kr&limit=1`);
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    const place = data[0];
+                    setLocation(parseFloat(place.lat), parseFloat(place.lon), place.display_name);
+                } else {
+                    alert('검색 결과가 없습니다');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('위치 검색에 실패했습니다');
+            }
+        }
+
+        // Enter 키 입력 시 검색
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchLocation();
+        });
+
+        // 페이지 로드 시 서울시청으로 시작
+        setDefaultLocation();
+    </script>
+</body>
+</html>
