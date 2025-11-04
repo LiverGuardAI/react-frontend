@@ -9,10 +9,29 @@
   color: white;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  justify-content: space-between;
+  padding: 0 24px;
   box-sizing: border-box;
-  z-index: 1000; /* ✅ Sidebar보다 높게 */
+  z-index: 1000;
   border-bottom: 1px solid #3a3f47;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: left 0.3s ease;
+}
+
+.topbar.with-sidebar {
+  left: 0;
+}
+
+.topbar.full {
+  left: 0;
+}
+
+/* 좌측 영역 */
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1; /* 🔥 남은 공간 차지 */
 }
 
 .toggle-btn {
@@ -21,15 +40,104 @@
   color: white;
   font-size: 24px;
   cursor: pointer;
-  margin-right: 20px;
-  transition: 0.2s;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* 🔥 크기 고정 */
 }
 
 .toggle-btn:hover {
-  color: #a4b0be;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .topbar-title {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.5px;
+  margin: 0; /* 🔥 기본 마진 제거 */
+  text-align: left; /* 🔥 왼쪽 정렬 명시 */
+}
+
+/* 우측 영역 */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0; /* 🔥 크기 고정 */
+}
+
+/* 사용자 정보 */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.user-info:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.2;
+}
+
+.logout-btn:hover {
+  background: #fd5353;
+  color: white;
+  box-shadow: 0 4px 10px rgba(253, 83, 83, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .topbar-title {
+    font-size: 16px;
+  }
+
+  .user-details {
+    display: none;
+  }
 }

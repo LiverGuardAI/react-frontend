@@ -1,19 +1,30 @@
 /* src/components/Sidebar/Sidebar.css */
 .sidebar {
   width: 240px;
-  height: calc(100vh - 60px); /* ✅ Topbar 높이만큼 빼기 */
+  height: calc(100vh - 60px); /* ✅ Topbar 높이 60px로 되돌림 */
   background-color: #2f3542;
   color: white;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   position: fixed;
-  top: 60px; /* ✅ Topbar 아래로 배치 */
+  top: 60px; /* ✅ Topbar 높이 60px로 되돌림 */
   left: 0;
   transition: transform 0.3s ease;
-  z-index: 800; /* ✅ Topbar보다 아래 */
+  z-index: 800;
   overflow-y: auto;
   border-right: 1px solid #3a3f47;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔥 스크롤바 스타일 */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 
 .sidebar.closed {
@@ -30,29 +41,47 @@
   flex-direction: column;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 16px 12px;
+  flex: 1;
 }
 
 .menu-item {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 14px 20px;
+  padding: 12px 16px;
+  margin: 4px 0;
   text-decoration: none;
   color: #d1d1d1;
-  font-size: 16px;
-  transition: background-color 0.2s;
+  font-size: 14px;
+  transition: all 0.2s ease;
   box-sizing: border-box;
+  border-radius: 8px;
+  position: relative;
 }
 
 .menu-item:hover {
-  background-color: #3a3f47;
+  background-color: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
 .menu-item.active {
-  background-color: #495057;
+  background-color: rgba(255, 255, 255, 0.15);
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
+}
+
+/* 🔥 활성 메뉴 좌측 바 */
+.menu-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: white;
+  border-radius: 0 3px 3px 0;
 }
 
 /* ✅ 반응형 (모바일에서 슬라이드) */
@@ -67,21 +96,30 @@
   }
 }
 
+/* 🔥 로그아웃 섹션 - 하단 고정 */
 .logout-section {
   margin-top: auto;
-  text-align: left;
-  padding: 10px 10px;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logout-btn {
-  font-size: 13px;
-  color: #afafaf;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #d1d1d1;
   background: none;
   border: none;
   cursor: pointer;
+  text-align: left;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logout-btn:hover {
+  background: rgba(253, 83, 83, 0.1);
   color: #fd5353;
-  text-decoration: underline;
 }

@@ -19,8 +19,6 @@ const Page2 = () => {
     try {
       setLoading(true);
       const res = await getBloodResults();
-      console.log("API Response:", res);
-      // 현재 환자의 데이터만 필터링
       const filteredData = (Array.isArray(res) ? res : []).filter(
         item => item.patient === patient_id
       );
@@ -28,27 +26,35 @@ const Page2 = () => {
       setError(null);
     } catch (err) {
       if (err.response?.status === 404) {
-      setRows([]);
-      setError(null);
-    } else {
-      setError("데이터를 불러오는데 실패했습니다.");
-    }
+        setRows([]);
+        setError(null);
+      } else {
+        setError("데이터를 불러오는데 실패했습니다.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   // 삭제
-  const handleDelete = async (id) => {
+  const handleDelete = async (bloodResultId) => {
+    if (!bloodResultId) {
+      alert("삭제할 데이터의 ID가 없습니다.");
+      return;
+    }
+
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
     try {
-      await deleteBloodResult(id); // API 호출
-      setRows(rows.filter(row => row.id !== id));
+      await deleteBloodResult(bloodResultId); // API 호출
+      setRows(rows.filter(row => row.blood_result_id !== bloodResultId));
+      alert("삭제되었습니다.");
     } catch (err) {
+      console.error("삭제 실패:", err);
       alert("삭제에 실패했습니다.");
     }
   };
@@ -58,74 +64,106 @@ const Page2 = () => {
     setRows(prev => [...prev, newData]);
   };
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>혈액검사 결과</h2>
-      <button 
-        onClick={() => navigate("/bloodresult/create")}
-        style={{
-          marginBottom: "10px",
-          padding: "8px 16px",
-          background: "#28a745",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer"
-        }}
-      >
-        등록
-      </button>
-      {loading ? (
-        <p>데이터를 불러오는 중...</p>
-      ) : error ? (
-        <p style={{ color: "red" }}>{error}</p>
-      ) : rows.length === 0 ? (
-        <p>등록된 데이터가 없습니다.</p>
-      ) : (
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ borderBottom: "1px solid #ccc" }}>
-              <th>ID</th>
-              <th>AST</th>
-              <th>ALT</th>
-              <th>ALP</th>
-              <th>GGT</th>
-              <th>Bilirubin</th>
-              <th>Albumin</th>
-              <th>INR</th>
-              <th>Platelet</th>
-              <th>AFP</th> 
-              <th>ALBI</th>
-              <th>검사일</th>
-              <th>등록일</th>
-              <th>작업</th>
-          </tr>
-          </thead>
-          <tbody>
-            {rows.map(row  => (
-              <tr key={row.id} style={{ borderBottom: "1px solid #eee" }}>
-                <td>{row.blood_result_id}</td>
-                <td>{row.ast}</td>
-                <td>{row.alt}</td>
-                <td>{row.alp}</td>
-                <td>{row.ggt}</td>
-                <td>{row.bilirubin}</td>
-                <td>{row.albumin}</td>
-                <td>{row.inr}</td>
-                <td>{row.platelet}</td>
-                <td>{row.afp}</td>
-                <td>{row.ALBI}</td>
-                <td>{row.taken_at}</td>
-                <td>{row.created_at}</td>
-                <td style={{ display: "flex", gap: "5px" }}>
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    return dateString.split('T')[0];
+  };
 
-                  <button onClick={() => navigate(`/bloodresult/edit/${row.id}`)}>수정</button>
-                  <button onClick={() => handleDelete(row.id)}>삭제</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  return (
+    <div className="blood-result-page">
+      {/* 🔥 페이지 헤더 */}
+      <div className="page-header">
+        <button 
+          className="btn-create"
+          onClick={() => navigate("/bloodresult/create")}
+        >
+          + 새로운 검사 등록
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="status-message">
+          <p>데이터를 불러오는 중...</p>
+        </div>
+      ) : error ? (
+        <div className="status-message error">
+          <p>{error}</p>
+        </div>
+      ) : rows.length === 0 ? (
+        <div className="status-message">
+          <p>등록된 데이터가 없습니다.</p>
+        </div>
+      ) : (
+        <div className="blood-table-card">
+          {/* 🔥 카드 헤더 */}
+          <div className="card-header">
+            <div className="card-header-content">
+              <div>
+                <h3 className="card-title">혈액검사 목록</h3>
+                <p className="card-subtitle">총 {rows.length}건의 검사 결과</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 🔥 테이블 */}
+          <div className="table-wrapper">
+            <table className="blood-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>AST</th>
+                  <th>ALT</th>
+                  <th>ALP</th>
+                  <th>GGT</th>
+                  <th>Bilirubin</th>
+                  <th>Albumin</th>
+                  <th>INR</th>
+                  <th>Platelet</th>
+                  <th>AFP</th>
+                  <th>ALBI</th>
+                  <th>검사일</th>
+                  <th>등록일</th>
+                  <th>작업</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map(row => (
+                  <tr key={row.blood_result_id}>
+                    <td>{row.blood_result_id}</td>
+                    <td>{row.ast}</td>
+                    <td>{row.alt}</td>
+                    <td>{row.alp}</td>
+                    <td>{row.ggt}</td>
+                    <td>{row.bilirubin}</td>
+                    <td>{row.albumin}</td>
+                    <td>{row.inr}</td>
+                    <td>{row.platelet}</td>
+                    <td>{row.afp}</td>
+                    <td>{row.ALBI}</td>
+                    <td className="date-cell">{formatDate(row.taken_at)}</td>
+                    <td className="date-cell">{formatDate(row.created_at)}</td>
+                    <td>
+                      <div className="action-cell">
+                        <button 
+                          className="btn btn-edit"
+                          onClick={() => navigate(`/bloodresult/edit/${row.blood_result_id}`)}
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          className="btn btn-delete"
+                          onClick={() => handleDelete(row.blood_result_id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
     </div>
   );

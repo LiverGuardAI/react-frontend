@@ -34,6 +34,7 @@ export const useAuth = () => {
     const data = await getUserInfo();
     setUser(data);
     localStorage.setItem("patient_id", data.patient_id); // 추가
+    localStorage.setItem("name", data.name); // 이름 저장 추가!
   };
 
 const handleLogout = async () => {
@@ -45,6 +46,8 @@ const handleLogout = async () => {
   } finally {
     localStorage.removeItem("access_token"); // ✅ 서버 요청 후 삭제
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("patient_id");
+    localStorage.removeItem("name");
     setUser(null);
     navigate("/login");
   }
