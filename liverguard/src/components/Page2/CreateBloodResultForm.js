@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createBloodResult } from "../../api/bloodResultAPI";
+import "./CreateBloodResultForm.css";
 
 const CreateBloodResultForm  = () => {
     const navigate = useNavigate();
@@ -70,42 +71,175 @@ const CreateBloodResultForm  = () => {
      };
 
      return (
-        <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-            <h2>혈액검사 결과 등록</h2>
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                <input type="number" step="0.01" name="ast" value={form.ast} onChange={handleChange} placeholder="AST" required />
-                <input type="number" step="0.01" name="alt" value={form.alt} onChange={handleChange} placeholder="ALT" required />
-                <input type="number" step="0.01" name="alp" value={form.alp} onChange={handleChange} placeholder="ALP" />
-                <input type="number" step="0.01" name="ggt" value={form.ggt} onChange={handleChange} placeholder="GGT" />
-                <input type="number" step="0.01" name="bilirubin" value={form.bilirubin} onChange={handleChange} placeholder="Bilirubin" required />
-                <input type="number" step="0.01" name="albumin" value={form.albumin} onChange={handleChange} placeholder="Albumin" required />
-                <input type="number" step="0.01" name="inr" value={form.inr} onChange={handleChange} placeholder="INR" />
-                <input type="number" step="0.01" name="platelet" value={form.platelet} onChange={handleChange} placeholder="Platelet" />
-                <input type="number" step="0.01" name="afp" value={form.afp} onChange={handleChange} placeholder="AFP" required />
-    
-                <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                    <button type="submit" disabled={loading} style={{ 
-                        padding: "10px 20px", 
-                        background: loading ? "#6c757d" : "#28a745", 
-                        color: "white", 
-                        border: "none", 
-                        borderRadius: "4px",
-                        cursor: loading ? "not-allowed" : "pointer"
-                    }}>
-                        {loading ? "등록중..." : "등록"}
-                    </button>
-                    <button type="button" onClick={() => navigate("/page2")} style={{ 
-                        padding: "10px 20px", 
-                        background: "#6c757d", 
-                        color: "white", 
-                        border: "none", 
-                        borderRadius: "4px",
-                        cursor: "pointer"
-                    }}>취소</button>
-                </div>
-            </form>
+    <div className="create-form-page">
+      {/* 페이지 헤더 */}
+      <div className="form-page-header">
+      </div>
+
+      <div className="form-card">
+        {/* 카드 헤더 */}
+        <div className="form-card-header">
+          <div className="form-card-header-content">
+            <h3 className="form-card-title">새로운 검사 등록</h3>
+          </div>
         </div>
-    );
+
+        {/* 카드 바디 */}
+        <div className="form-card-body">
+          <form className="blood-result-form" onSubmit={handleSubmit}>
+            {/* AST, ALT */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label required">AST</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="ast"
+                  value={form.ast}
+                  onChange={handleChange}
+                  placeholder="AST"
+                  required
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label required">ALT</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="alt"
+                  value={form.alt}
+                  onChange={handleChange}
+                  placeholder="ALT"
+                  required
+                  className="form-input"
+                />
+              </div>
+            </div>
+
+            {/* ALP, GGT */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">ALP</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="alp"
+                  value={form.alp}
+                  onChange={handleChange}
+                  placeholder="ALP"
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">GGT</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="ggt"
+                  value={form.ggt}
+                  onChange={handleChange}
+                  placeholder="GGT"
+                  className="form-input"
+                />
+              </div>
+            </div>
+
+            {/* Bilirubin, Albumin */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label required">Bilirubin</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="bilirubin"
+                  value={form.bilirubin}
+                  onChange={handleChange}
+                  placeholder="Bilirubin"
+                  required
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label required">Albumin</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="albumin"
+                  value={form.albumin}
+                  onChange={handleChange}
+                  placeholder="Albumin"
+                  required
+                  className="form-input"
+                />
+              </div>
+            </div>
+
+            {/* INR, Platelet */}
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">INR</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="inr"
+                  value={form.inr}
+                  onChange={handleChange}
+                  placeholder="INR"
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Platelet</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="platelet"
+                  value={form.platelet}
+                  onChange={handleChange}
+                  placeholder="Platelet"
+                  className="form-input"
+                />
+              </div>
+            </div>
+
+            {/* AFP */}
+            <div className="form-group">
+              <label className="form-label required">AFP</label>
+              <input
+                type="number"
+                step="0.01"
+                name="afp"
+                value={form.afp}
+                onChange={handleChange}
+                placeholder="AFP"
+                required
+                className="form-input"
+              />
+            </div>
+
+            {/* 버튼 그룹 */}
+            <div className="form-actions">
+              <button type="submit" disabled={loading} className="btn-submit">
+                {loading ? "등록 중..." : "등록"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/page2")}
+                className="btn-cancel"
+              >
+                취소
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default CreateBloodResultForm;

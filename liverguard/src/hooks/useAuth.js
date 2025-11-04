@@ -31,7 +31,6 @@ export const useAuth = () => {
 
   const handleLogin = async (credentials) => {
     await login(credentials);
-
     // getUserInfo는 선택적으로 처리 (실패해도 로그인은 성공으로 처리)
     try {
       const data = await getUserInfo();
