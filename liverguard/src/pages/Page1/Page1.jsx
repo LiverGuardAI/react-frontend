@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserInfo } from "../../api/authAPI";
+import { getBloodResults } from "../../api/bloodResultAPI";
 import "./Page1.css";
 
 const Page1 = () => {
   const navigate = useNavigate();
   const [activeOrgan, setActiveOrgan] = useState(null);
   const [ripples, setRipples] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [bloodTestResults, setBloodTestResults] = useState({});
   const [userInfo, setUserInfo] = useState({
     name: "사용자",
     birth_date: "",
@@ -24,22 +27,134 @@ const Page1 = () => {
       return;
     }
 
-    // Fetch user information
-    const fetchUserInfo = async () => {
+    // Fetch user information and blood test results
+    const fetchData = async () => {
       try {
+        setLoading(true);
+
+        // 사용자 정보 가져오기
         const userData = await getUserInfo();
         setUserInfo(userData);
-        // localStorage에 사용자 이름 저장
         if (userData.name) {
           localStorage.setItem("user_name", userData.name);
         }
+
+        // 혈액검사 결과 가져오기
+        const patient_id = localStorage.getItem("patient_id");
+        if (patient_id) {
+          const bloodData = await getBloodResults();
+          const patientData = (Array.isArray(bloodData) ? bloodData : [])
+            .filter((item) => item.patient === patient_id)
+            .sort((a, b) => new Date(b.taken_at) - new Date(a.taken_at));
+
+          // 가장 최근 검사 결과 사용
+          if (patientData.length > 0) {
+            const latest = patientData[0];
+            const results = convertToTestResults(latest, patientData);
+            setBloodTestResults(results);
+          }
+        }
       } catch (error) {
-        console.error("사용자 정보 로딩 실패:", error);
+        console.error("데이터 로딩 실패:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchUserInfo();
+    fetchData();
   }, [navigate]);
+
+  // API 데이터를 테스트 결과 형식으로 변환
+  const convertToTestResults = (latest, history) => {
+    const getTrend = (currentValue, fieldName) => {
+      if (history.length < 2) return 'stable';
+      const previous = history[1][fieldName];
+      if (!previous || !currentValue) return 'stable';
+      if (currentValue > previous) return 'up';
+      if (currentValue < previous) return 'down';
+      return 'stable';
+    };
+
+    const getStatus = (value, min, max) => {
+      if (!value) return 'normal';
+      if (value < min) return 'low';
+      if (value > max) return 'high';
+      return 'normal';
+    };
+
+    return {
+      'AST': {
+        value: latest.ast || 0,
+        normal: [0, 40],
+        unit: 'U/L',
+        status: getStatus(latest.ast, 0, 40),
+        trend: getTrend(latest.ast, 'ast')
+      },
+      'ALT': {
+        value: latest.alt || 0,
+        normal: [0, 41],
+        unit: 'U/L',
+        status: getStatus(latest.alt, 0, 41),
+        trend: getTrend(latest.alt, 'alt')
+      },
+      'ALP': {
+        value: latest.alp || 0,
+        normal: [30, 120],
+        unit: 'U/L',
+        status: getStatus(latest.alp, 30, 120),
+        trend: getTrend(latest.alp, 'alp')
+      },
+      'GGT': {
+        value: latest.ggt || 0,
+        normal: [0, 51],
+        unit: 'U/L',
+        status: getStatus(latest.ggt, 0, 51),
+        trend: getTrend(latest.ggt, 'ggt')
+      },
+      'Bilirubin': {
+        value: latest.bilirubin || 0,
+        normal: [0.2, 1.2],
+        unit: 'mg/dL',
+        status: getStatus(latest.bilirubin, 0.2, 1.2),
+        trend: getTrend(latest.bilirubin, 'bilirubin')
+      },
+      'Albumin': {
+        value: latest.albumin || 0,
+        normal: [3.5, 5.5],
+        unit: 'g/dL',
+        status: getStatus(latest.albumin, 3.5, 5.5),
+        trend: getTrend(latest.albumin, 'albumin')
+      },
+      'INR': {
+        value: latest.inr || 0,
+        normal: [0.8, 1.2],
+        unit: '',
+        status: getStatus(latest.inr, 0.8, 1.2),
+        trend: getTrend(latest.inr, 'inr')
+      },
+      'Platelet': {
+        value: latest.platelet || 0,
+        normal: [150, 400],
+        unit: '×10³/μL',
+        status: getStatus(latest.platelet, 150, 400),
+        trend: getTrend(latest.platelet, 'platelet')
+      },
+      'AFP': {
+        value: latest.afp || 0,
+        normal: [0, 10],
+        unit: 'ng/mL',
+        status: getStatus(latest.afp, 0, 10),
+        trend: getTrend(latest.afp, 'afp')
+      },
+      'ALBI': {
+        value: latest.albi_score || 0,
+        normal: [-2.6, -1.4],
+        unit: '',
+        status: getStatus(latest.albi_score, -2.6, -1.4),
+        trend: getTrend(latest.albi_score, 'albi_score')
+      }
+    };
+  };
 
   const handleOrganClick = (organ, event) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -96,19 +211,6 @@ const Page1 = () => {
     }
   ];
 
-  const bloodTestResults = {
-    'AST': { value: 35, normal: [0, 40], unit: 'U/L', status: 'normal', trend: 'stable' },
-    'ALT': { value: 42, normal: [0, 41], unit: 'U/L', status: 'high', trend: 'up' },
-    'ALP': { value: 85, normal: [30, 120], unit: 'U/L', status: 'normal', trend: 'down' },
-    'GGT': { value: 55, normal: [0, 51], unit: 'U/L', status: 'high', trend: 'up' },
-    'Bilirubin': { value: 1.2, normal: [0.2, 1.2], unit: 'mg/dL', status: 'normal', trend: 'stable' },
-    'Albumin': { value: 4.0, normal: [3.5, 5.5], unit: 'g/dL', status: 'normal', trend: 'stable' },
-    'INR': { value: 1.1, normal: [0.8, 1.2], unit: '', status: 'normal', trend: 'stable' },
-    'Platelet': { value: 185, normal: [150, 400], unit: '×10³/μL', status: 'normal', trend: 'stable' },
-    'AFP': { value: 8.5, normal: [0, 10], unit: 'ng/mL', status: 'normal', trend: 'down' },
-    'ALBI': { value: -2.5, normal: [-2.6, -1.4], unit: '', status: 'normal', trend: 'stable' }
-  };
-
   const getStatusColor = (status) => {
     switch (status) {
       case 'high': return '#EF4444';
@@ -136,6 +238,18 @@ const Page1 = () => {
     }
     return age;
   };
+
+  if (loading) {
+    return (
+      <div className="page1-container" style={{ backgroundImage: 'url(/images/background.avif)' }}>
+        <div className="page1-content">
+          <div style={{ textAlign: 'center', padding: '50px', color: 'white' }}>
+            로딩 중...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="page1-container" style={{ backgroundImage: 'url(/images/background.avif)' }}>
@@ -271,7 +385,15 @@ const Page1 = () => {
 
           {/* Test Results Section */}
           <div className="test-results-container">
-            {organs.map((organ) => (
+            {Object.keys(bloodTestResults).length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '50px', color: 'white', fontSize: '18px' }}>
+                <p>혈액검사 결과가 없습니다.</p>
+                <p style={{ marginTop: '10px', fontSize: '14px', opacity: 0.8 }}>
+                  '검사 추가 및 수정' 버튼을 눌러 혈액검사 결과를 추가해주세요.
+                </p>
+              </div>
+            ) : (
+              organs.map((organ) => (
               <div key={organ.id} id={organ.id} className="organ-section">
                 <div className="organ-header">
                   <div
@@ -334,7 +456,8 @@ const Page1 = () => {
                   })}
                 </div>
               </div>
-            ))}
+              ))
+            )}
           </div>
       </div>
     </div>
