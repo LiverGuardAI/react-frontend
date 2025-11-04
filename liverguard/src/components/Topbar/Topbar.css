@@ -29,7 +29,25 @@
   color: #a4b0be;
 }
 
+.topbar-branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-logo {
+  height: 40px;
+  object-fit: contain;
+  filter: brightness(1.1);
+  transition: transform 0.3s ease;
+}
+
+.topbar-logo:hover {
+  transform: scale(1.05);
+}
+
 .topbar-title {
   font-size: 18px;
   font-weight: bold;
+  margin: 0;
 }
