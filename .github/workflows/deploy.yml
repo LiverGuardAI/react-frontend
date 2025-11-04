@@ -1,0 +1,29 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "react-frontend/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy Frontend to GCP
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_HOST }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            echo "🟩 Updating frontend on server..."
+            cd /home/${{ secrets.GCP_USER }}/Dashboard
+            git pull
+            docker compose build frontend nginx
+            docker compose up -d frontend nginx
+            echo "✅ Frontend deployed successfully!"
