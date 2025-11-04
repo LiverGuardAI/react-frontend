@@ -222,7 +222,7 @@ const Pharmacy = () => {
                   <Popup>
                     <strong>{pharmacy.name}</strong><br />
                     {pharmacy.address}<br />
-                    {pharmacy.phone && `📞 ${pharmacy.phone}<br />`}
+                    {pharmacy.phone && `📞 ${pharmacy.phone}`}
                     📍 {pharmacy.distance}m
                   </Popup>
                 </Marker>
