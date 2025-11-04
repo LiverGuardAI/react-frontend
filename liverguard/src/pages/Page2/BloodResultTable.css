@@ -1,39 +1,238 @@
+/* ==================== 페이지 컨테이너 ==================== */
+.blood-result-page {
+  padding: 0;
+}
+
+/* ==================== 페이지 헤더 ==================== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #344767;
+  margin: 0;
+}
+
+/* ==================== 테이블 카드 ==================== */
+.blood-table-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* 카드 헤더 */
+.card-header {
+  padding: 24px 24px 0;
+  background: linear-gradient(195deg, #49a3f1 0%, #1A73E8 100%);
+  margin: 16px 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(26, 115, 232, 0.4);
+  position: relative;
+  margin-top: -20px; /* 🔥 카드 위로 올리기 */
+}
+
+.card-header-content {
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.card-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4px;
+}
+
+/* ==================== 테이블 래퍼 ==================== */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+}
+
+/* ==================== 테이블 ==================== */
 .blood-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
-  margin-top: 12px;
+  margin: 0;
+}
+
+.blood-table thead {
+  background-color: transparent;
 }
 
 .blood-table thead th {
+  padding: 16px 16px;
   text-align: left;
-  padding: 10px 8px;
-  font-weight: 600;
-  background: transparent; /* 박스처럼 보이는 배경 제거 */
-  border: none; /* 테두리 제거 */
+  font-size: 11px;
+  font-weight: 700;
+  color: #7b809a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 가운데 정렬이 필요한 컬럼 */
+.blood-table thead th:not(:first-child):not(:last-child) {
+  text-align: center;
 }
 
 .blood-table tbody td {
-  padding: 8px;
-  border-bottom: 1px solid #e6e6e6; /* 얇은 밑줄만 표시 */
+  padding: 16px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  color: #344767;
+  font-size: 14px;
+  font-weight: 400;
+  vertical-align: middle;
 }
 
+/* 가운데 정렬이 필요한 컬럼 */
+.blood-table tbody td:not(:first-child):not(:last-child) {
+  text-align: center;
+}
+
+.blood-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.blood-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.blood-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ID 컬럼 스타일 */
+.blood-table tbody td:first-child {
+  font-weight: 600;
+  color: #344767;
+  font-size: 14px;
+}
+
+/* 날짜 컬럼 */
+.blood-table .date-cell {
+  color: #7b809a;
+  font-size: 13px;
+}
+
+/* ==================== 액션 버튼 ==================== */
 .action-cell {
   display: flex;
   gap: 8px;
   align-items: center;
+  justify-content: flex-start;
 }
 
-/* 버튼 공통 */
 .btn {
-  padding: 4px 8px;
+  padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
+  border: none;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  background: transparent;
 }
 
-/* 수정 / 삭제 색상 */
-.btn-edit { border-color:#2b7be4; color:#2b7be4; }
-.btn-delete { border-color:#d9534f; color:#d9534f; }
+/* 등록 버튼 */
+.btn-create {
+  padding: 12px 24px;
+  background: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(67, 160, 71, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-create:hover {
+  box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.18), 0 9px 15px -5px rgba(67, 160, 71, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 수정 버튼 */
+.btn-edit { 
+  color: #1A73E8;
+  background: rgba(26, 115, 232, 0.1);
+}
+
+.btn-edit:hover {
+  background: rgba(26, 115, 232, 0.2);
+  transform: translateY(-1px);
+}
+
+/* 삭제 버튼 */
+.btn-delete { 
+  color: #F44335;
+  background: rgba(244, 67, 53, 0.1);
+}
+
+.btn-delete:hover {
+  background: rgba(244, 67, 53, 0.2);
+  transform: translateY(-1px);
+}
+
+/* ==================== 상태 메시지 ==================== */
+.status-message {
+  padding: 60px 40px;
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  color: #7b809a;
+  font-size: 14px;
+}
+
+.status-message.error {
+  color: #F44335;
+}
+
+.status-message p {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ==================== 반응형 ==================== */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .card-header {
+    margin-top: 0;
+  }
+
+  .blood-table thead th,
+  .blood-table tbody td {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+
+  .btn-create {
+    width: 100%;
+  }
+}
