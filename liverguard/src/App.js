@@ -11,6 +11,7 @@ import Dashboard2 from "./pages/dashboard/dashboard_2";
 import Page3 from "./pages/Page3/Page3";
 import Profile from "./pages/Profile/Profile";
 import Pharmacy from "./pages/Pharmacy/Pharmacy";
+import DDI from "./pages/DDI/DDI";
 // import Page4 from "./pages/Page4/Page4";
 import EditBloodResultForm from "./components/Page2/EditBloodResultForm";
 import CreateBloodResultForm from "./components/Page2/CreateBloodResultForm";
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/bloodresult/create" element={<CreateBloodResultForm />} />
           <Route path="/bloodresult/edit/:id" element={<EditBloodResultForm />} />
+          <Route path="/ddi" element={<DDI/>} />
         </Route>
       </Routes>
     </Router>
